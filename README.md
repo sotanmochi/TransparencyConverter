@@ -1,7 +1,6 @@
 # Transparency Converter
 
-<img src="./Assets/TransparencyConverter/Documentation~/TransparencyConverter01.png" height="512">
-<img src="./Assets/TransparencyConverter/Documentation~/TransparencyConverter02.png" height="512">
+<img src="./Assets/TransparencyConverter/Documentation~/TransparencyConverter.png" height="512">
 
 Transparency Converterは、sRGB色空間の透明度の値からリニア色空間の透明度の値を計算するためのUnityパッケージです。  
 これを使うことにより、開発者/デザイナーは、外部ツールを使ってsRGB色空間で設計した色とUnityで最終出力する色を同じ色にすることができます。
