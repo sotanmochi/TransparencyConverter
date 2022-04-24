@@ -72,7 +72,7 @@ namespace TransparencyConverter.Editor
             _previewRenderer.camera.transform.position = new Vector3(0, 50, 0);
             _previewRenderer.camera.transform.rotation = Quaternion.Euler(90, 180, 0);
             _previewRenderer.camera.clearFlags = CameraClearFlags.SolidColor;
-            _previewRenderer.camera.backgroundColor = _backgroundColor;
+            // _previewRenderer.camera.backgroundColor = _backgroundColor;
 
             // Add game object
             var foregroundPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -82,6 +82,17 @@ namespace TransparencyConverter.Editor
 
             foregroundPlane.GetComponent<MeshRenderer>().material = foregroundMaterial;
             _previewRenderer.AddSingleGO(foregroundPlane);
+
+            // Add game object
+            var backgroundPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            backgroundPlane.transform.position = new Vector3(0, -25, 0);
+            backgroundPlane.transform.localScale = new Vector3(2, 2, 2);
+
+            var backgroundMaterial = new Material(Shader.Find(_shaderName));
+            backgroundMaterial.color = _backgroundColor;
+
+            backgroundPlane.GetComponent<MeshRenderer>().material = backgroundMaterial;
+            _previewRenderer.AddSingleGO(backgroundPlane);
 
             // Add game object
             var imagePlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -99,6 +110,7 @@ namespace TransparencyConverter.Editor
 
             // Delete game objects
             GameObject.DestroyImmediate(foregroundPlane);
+            GameObject.DestroyImmediate(backgroundPlane);
             GameObject.DestroyImmediate(imagePlane);
         }
     }
