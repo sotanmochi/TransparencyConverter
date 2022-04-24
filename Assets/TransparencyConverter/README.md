@@ -1,7 +1,7 @@
 # Transparency Converter
 
-<img src="./Assets/TransparencyConverter/Documentation~/TransparencyConverter01.png" height="512">
-<img src="./Assets/TransparencyConverter/Documentation~/TransparencyConverter02.png" height="512">
+<img src="./Documentation~/TransparencyConverter01.png" height="512">
+<img src="./Documentation~/TransparencyConverter02.png" height="512">
 
 Transparency Converterは、sRGB色空間の透明度の値からリニア色空間の透明度の値を計算するためのUnityパッケージです。  
 これを使うことにより、開発者/デザイナーは、外部ツールを使ってsRGB色空間で設計した色とUnityで最終出力する色を同じ色にすることができます。
@@ -15,11 +15,11 @@ This allows developers/designers to make the final output colors using Unity the
 https://github.com/sotanmochi/TransparencyConverter.git?path=Assets/TransparencyConverter
 `
 
-<img src="./Assets/TransparencyConverter/Documentation~/HowToInstall.png">
+<img src="./Documentation~/HowToInstall.png">
 
 ## How to use
 
-<img src="./Assets/TransparencyConverter/Documentation~/HowToUse.png" height="512">
+<img src="./Documentation~/HowToUse.png" height="512">
 
 ## Tested Environment
 - Unity 2020.3.27f1

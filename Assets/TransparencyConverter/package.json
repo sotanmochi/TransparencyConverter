@@ -1,0 +1,9 @@
+{
+    "name": "jp.sotanmochi.transparencyconverter",
+    "version": "1.0.0",
+    "displayName": "TransparencyConverter",
+    "description": "Calculate the transparency value in linear color space from the value in sRGB color space.",
+    "license": "MIT",
+    "unity": "2020.3",
+    "author": { "name": "Soichiro Sugimoto" }
+}
