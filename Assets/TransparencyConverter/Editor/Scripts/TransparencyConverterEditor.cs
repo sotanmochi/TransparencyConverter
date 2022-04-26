@@ -42,13 +42,14 @@ namespace TransparencyConverter.Editor
             EditorGUILayout.LabelField($"<Input>", EditorStyles.boldLabel);
 
             _transparencySRGB = EditorGUILayout.Slider("Transparency (sRGB)", _transparencySRGB, 0, 1);
-
-            var transparencyLinear = TransparencyConverter.SRGBToLinear(_transparencySRGB);
-            _transparency = PlayerSettings.colorSpace is ColorSpace.Gamma ? _transparencySRGB : transparencyLinear;
-
-            _imageMaterial = EditorGUILayout.ObjectField("Image Material", _imageMaterial, typeof(Material), true) as Material;
             _foregroundColor = EditorGUILayout.ColorField("Foreground Color", _foregroundColor);
             _backgroundColor = EditorGUILayout.ColorField("Background Color", _backgroundColor);
+            _imageMaterial = EditorGUILayout.ObjectField("Image Material", _imageMaterial, typeof(Material), true) as Material;
+
+            var foregroundColor = new System.Numerics.Vector3(_foregroundColor.r, _foregroundColor.g, _foregroundColor.b);
+            var backgroundColor = new System.Numerics.Vector3(_backgroundColor.r, _backgroundColor.g, _backgroundColor.b);
+            var transparencyLinear = TransparencyConverter.SRGBToLinear(_transparencySRGB, foregroundColor, backgroundColor);
+            _transparency = PlayerSettings.colorSpace is ColorSpace.Gamma ? _transparencySRGB : transparencyLinear;
 
             _foregroundColor.a = _transparency;
 
