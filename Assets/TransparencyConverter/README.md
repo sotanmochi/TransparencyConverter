@@ -24,6 +24,7 @@ https://github.com/sotanmochi/TransparencyConverter.git?path=Assets/Transparency
 - Unity 2020.3.27f1
 
 ## References
+- [sRGB - Wikipedia](https://en.wikipedia.org/wiki/SRGB#Transformation)
 - [物理ベースレンダリング -リニアワークフロー編 (2)- | Cygames Engineers' Blog](https://tech.cygames.co.jp/archives/2339/)
 - [分かる！リニアワークフローのコンポジット - コンポジゴク](http://compojigoku.blog.fc2.com/blog-entry-26.html)
 
