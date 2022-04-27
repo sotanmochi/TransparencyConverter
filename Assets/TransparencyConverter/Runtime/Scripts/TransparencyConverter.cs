@@ -42,16 +42,9 @@ namespace TransparencyConverter
             }
 
             // Calculate transparency value
-            if (c <= 0.04045)
-            {
-                return alpha_srgb;
-            }
-            else
-            {
-                var numerator   = (Math.Pow((c  + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
-                var denominator = (Math.Pow((cf + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
-                return (float)(numerator / denominator);
-            }
+            var numerator   = (Math.Pow((c  + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
+            var denominator = (Math.Pow((cf + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
+            return (float)(numerator / denominator);
         }
 
         public static float SRGBToLinearApproximately(float alpha_srgb, Vector3 foregroundColor, Vector3 backgroundColor)
