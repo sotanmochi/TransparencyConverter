@@ -28,7 +28,7 @@ namespace TransparencyConverter.Editor
         public void OnDisable()
         {
             _initialize = false;
-            _previewRenderer.Cleanup();
+            _previewRenderer?.Cleanup();
         }
 
         public void OnGUI()

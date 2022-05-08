@@ -8,6 +8,7 @@ namespace TransparencyConverter
 {
     public class TransparencyConverter
     {
+
         public static float SRGBToLinear(float alpha_srgb, Vector3 foregroundColor, Vector3 backgroundColor)
         {
             var diff = Vector3.Abs(foregroundColor - backgroundColor);
@@ -18,72 +19,35 @@ namespace TransparencyConverter
 
             var color_srgb = foregroundColor * alpha_srgb + backgroundColor * (1 - alpha_srgb);
 
-            var cf = 0f;
-            var cb = 0f;
-            var c  = 0f;
+            var t_r_srgb = TransferFunction(color_srgb.X);
+            var t_g_srgb = TransferFunction(color_srgb.Y);
+            var t_b_srgb = TransferFunction(color_srgb.Z);
 
-            if (diff.X != 0)
-            {
-                cf = foregroundColor.X;
-                cb = backgroundColor.X;
-                c  = color_srgb.X;
-            }
-            else if (diff.Y != 0)
-            {
-                cf = foregroundColor.Y;
-                cb = backgroundColor.Y;
-                c  = color_srgb.Y;
-            }
-            else if (diff.Z != 0)
-            {
-                cf = foregroundColor.Z;
-                cb = backgroundColor.Z;
-                c  = color_srgb.Z;
-            }
+            var t_rf = TransferFunction(foregroundColor.X);
+            var t_gf = TransferFunction(foregroundColor.Y);
+            var t_bf = TransferFunction(foregroundColor.Z);
 
-            // Calculate transparency value
-            var numerator   = (Math.Pow((c  + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
-            var denominator = (Math.Pow((cf + 0.055) / 1.055, 2.4) - Math.Pow((cb + 0.055) / 1.055, 2.4));
-            return (float)(numerator / denominator);
+            var t_rb = TransferFunction(backgroundColor.X);
+            var t_gb = TransferFunction(backgroundColor.Y);
+            var t_bb = TransferFunction(backgroundColor.Z);
+
+            var rf_rb = foregroundColor.X - backgroundColor.X;
+            var gf_gb = foregroundColor.Y - backgroundColor.Y;
+            var bf_bb = foregroundColor.Z - backgroundColor.Z;
+
+            if (rf_rb == 0f) { rf_rb = 1f; }
+            if (gf_gb == 0f) { gf_gb = 1f; }
+            if (bf_bb == 0f) { bf_bb = 1f; }
+
+            var top    = ((t_r_srgb - t_rb) * gf_gb * bf_bb) + (rf_rb * (t_g_srgb - t_gb) * bf_bb) + (rf_rb * gf_gb * (t_b_srgb - t_bb));
+            var bottom = ((t_rf     - t_rb) * gf_gb * bf_bb) + (rf_rb * (t_gf     - t_gb) * bf_bb) + (rf_rb * gf_gb * (t_bf     - t_bb));
+
+            return (float)(top / bottom);
         }
 
-        public static float SRGBToLinearApproximately(float alpha_srgb, Vector3 foregroundColor, Vector3 backgroundColor)
+        public static float TransferFunction(float x)
         {
-            var diff = Vector3.Abs(foregroundColor - backgroundColor);
-            if (diff == Vector3.Zero)
-            {
-                return 1f;
-            }
-
-            var color_srgb = foregroundColor * alpha_srgb + backgroundColor * (1 - alpha_srgb);
-
-            var cf = 0f;
-            var cb = 0f;
-            var c  = 0f;
-
-            if (diff.X != 0)
-            {
-                cf = foregroundColor.X;
-                cb = backgroundColor.X;
-                c  = color_srgb.X;
-            }
-            else if (diff.Y != 0)
-            {
-                cf = foregroundColor.Y;
-                cb = backgroundColor.Y;
-                c  = color_srgb.Y;
-            }
-            else if (diff.Z != 0)
-            {
-                cf = foregroundColor.Z;
-                cb = backgroundColor.Z;
-                c  = color_srgb.Z;
-            }
-
-            // Calculate transparency value
-            var numerator   = Math.Pow(c,  2.2) - Math.Pow(cb, 2.2);
-            var denominator = Math.Pow(cf, 2.2) - Math.Pow(cb, 2.2);
-            return (float)(numerator / denominator);
+            return (float)Math.Pow((x + 0.055) / 1.055, 2.4);
         }
     }
 }
